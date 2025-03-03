@@ -18,8 +18,24 @@ public:
     }
     int coinChange(vector<int>& coins, int amount) {
         int n=coins.size();
-        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
-        int result = solve(n - 1, coins, amount, dp);
+        vector<vector<int>> dp(n,vector<int>(amount+1,1e9));
+        // int result = solve(n - 1, coins, amount, dp);
+        // return (result >= 1e9) ? -1 : result;
+        for(int t=0;t<=amount;t++){
+            if(t%coins[0]==0)dp[0][t]=t/coins[0];
+            else dp[0][t]=1e9;
+        }
+        for(int i=1;i<n;i++){
+            for(int target=0;target<=amount;target++){
+                int not_take= 0+dp[i-1][target];
+                int take=1e9;//jab minimun chahie ho toh max se initialize krdo 
+                if (target >= coins[i]) { // Ensure valid index
+                    take = 1 + dp[i][target - coins[i]];
+                }
+                dp[i][target]=min(take,not_take);
+            }
+        }
+        int result=dp[n-1][amount];
         return (result >= 1e9) ? -1 : result;
     }
 };
