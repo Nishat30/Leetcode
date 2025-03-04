@@ -8,6 +8,11 @@ public:
         return not_pick || pick;
     }
     bool checkPowersOfThree(int n) {
-        return solve(0,n);
+        while (n > 0) {
+            int rem = n % 3; // Get remainder when divided by 3
+            if (rem == 2) return false; // If remainder is 2, we can't represent using 0s and 1s
+            n /= 3; // Reduce n for the next iteration
+        }
+        return true;
     }
 };
