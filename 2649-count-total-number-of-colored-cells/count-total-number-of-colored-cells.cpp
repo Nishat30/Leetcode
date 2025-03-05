@@ -4,6 +4,10 @@ public:
         if(n==1){
             return 1;
         }
-        return 4*(n-1)+coloredCells(n-1);
+        long long ans=1;
+        for(int i=1;i<n;i++){
+            ans+=4*i;
+        }
+        return ans;
     }
 };
