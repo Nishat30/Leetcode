@@ -17,7 +17,18 @@ public:
     int maxProfit(vector<int>& prices) {
         //tabulation code
         int n=prices.size();
-        vector<vector<int>> dp(n+1,vector<int>(5,-1));
-        return solve(0,0,prices,n,dp);
+        vector<vector<int>> dp(n+1,vector<int>(5,0));
+        for(int idx=n-1;idx>=0;idx--){
+            for(int trans=0;trans<4;trans++){
+                long profit=0;
+                if(trans%2==0){ //buy wala case
+                    profit=max(-prices[idx]+dp[idx+1][trans+1], 0+dp[idx+1][trans]);
+                }else{//sell wala case
+                    profit=max(prices[idx]+dp[idx+1][trans+1], 0+dp[idx+1][trans]);
+                }
+                dp[idx][trans]=profit;
+            }
+        }
+        return dp[0][0];
     }
 };
