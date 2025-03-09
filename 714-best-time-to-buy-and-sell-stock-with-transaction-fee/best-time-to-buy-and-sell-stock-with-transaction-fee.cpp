@@ -9,9 +9,9 @@ public:
             for(int buy=0;buy<2;buy++){
                 long profit=0;
                 if(buy){
-                    profit = max(-prices[i] + prev[0] , 0+ prev[1]);
+                    profit = max(-prices[i]-fee + prev[0] , 0+ prev[1]);
                 }else{ 
-                    profit= max(prices[i]-fee + prev[1] , 0+ prev[0]);
+                    profit= max(prices[i]+ prev[1] , 0+ prev[0]);
                 }
                 cur[buy]=profit;
             }
