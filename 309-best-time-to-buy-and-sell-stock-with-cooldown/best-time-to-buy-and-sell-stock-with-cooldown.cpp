@@ -7,15 +7,10 @@ public:
         dp[n][0]=0;
         dp[n][1]=0;
         for(int i=n-1;i>=0;i--){
-            for(int buy=0;buy<2;buy++){
-                long profit=0;
-                if(buy){
-                    profit = max(-prices[i] + dp[i+1][0] , 0+ dp[i+1][1]);
-                }else{ //sell
-                    profit= max(prices[i] + dp[i+2][1] , 0+ dp[i+1][0]);
-                }
-                dp[i][buy]=profit;
-            }
+            //buy
+            dp[i][1] = max(-prices[i] + dp[i+1][0] , 0+ dp[i+1][1]);
+            //sell
+            dp[i][0]= max(prices[i] + dp[i+2][1] , 0+ dp[i+1][0]);            
         }
         return dp[0][1];
     }
