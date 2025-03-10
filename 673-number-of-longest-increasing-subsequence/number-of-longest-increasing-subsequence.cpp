@@ -1,13 +1,10 @@
 class Solution {
 public:
     int findNumberOfLIS(vector<int>& nums) {
-        if(nums.size()==1){
-            return 1;
-        }
         int n=nums.size();
         vector<int> dp(n+1,1);
         vector<int> cnt(n+1,1);
-        int maxi=0;
+        int maxi=1;
         for(int i=0;i<n;i++){
             for(int prev=0;prev<i;prev++){
                 if(nums[prev]<nums[i] && 1+dp[prev]>dp[i]){
