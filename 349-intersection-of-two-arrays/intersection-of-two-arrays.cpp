@@ -3,7 +3,9 @@ public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         unordered_map<int,int> mp;
         for(int i:nums1){
-            mp[i]++;
+            if(mp.find(i)==mp.end()){
+                mp[i]++;
+            }
         }
         vector<int> ans;
         for(int j:nums2){
