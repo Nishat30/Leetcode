@@ -1,7 +1,7 @@
 class Solution {
 public:
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-        queue<pair<int,pair<int,int>>> q;
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> q;
         int n=grid.size();
         int m=grid[0].size();
         if (grid[0][0] == 1 || grid[n-1][m-1] == 1) return -1;
@@ -11,7 +11,7 @@ public:
         int dr[] = {-1, -1, -1, 0, 1, 1, 1, 0};
         int dc[] = {-1,  0,  1, 1, 1, 0, -1, -1};
         while(!q.empty()){
-            auto it=q.front();
+            auto it=q.top();
             q.pop();
             int dis=it.first;
             int r=it.second.first;
