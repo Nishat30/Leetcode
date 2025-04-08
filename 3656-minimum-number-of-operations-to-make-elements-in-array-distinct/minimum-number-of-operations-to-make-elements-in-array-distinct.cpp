@@ -1,23 +1,13 @@
 class Solution {
 public:
     int minimumOperations(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        int cnt=0;
-         while (true) {
-            mp.clear();
-            bool hasDuplicate = false;
-            for (int i : nums) {
-                if (mp.find(i) != mp.end()) {
-                    hasDuplicate = true;
-                    break;
-                }
-                mp[i]++;
+        vector<bool> seen(128);
+        for (int i = nums.size() - 1; i >= 0; i--) {
+            if (seen[nums[i]]) {
+                return i / 3 + 1;
             }
-            if (!hasDuplicate) break;
-            nums.erase(nums.begin(), nums.begin() + min(3, (int)nums.size()));
-            cnt++;
+            seen[nums[i]] = true;
         }
-
-        return cnt;
+        return 0;
     }
 };
