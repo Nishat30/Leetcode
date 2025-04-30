@@ -9,10 +9,18 @@ public:
         return cnt;
     }
     int findNumbers(vector<int>& nums) {
-        int ans=0;
-        for(int i:nums){
-            if(count_digits(i)%2==0) ans++;
+        // int ans=0;
+        // for(int i:nums){
+        //     if(count_digits(i)%2==0) ans++;
+        // }
+        // return ans;
+        int evenDigitCount = 0;
+
+        for (int num : nums) {
+            if ((num >= 10 && num <= 99) || (num >= 1000 && num <= 9999) || num == 100000)
+                evenDigitCount++;
         }
-        return ans;
+
+        return evenDigitCount;
     }
 };
