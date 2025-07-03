@@ -10,8 +10,7 @@ public:
                 if(five_cnt==0)return false;
                 else ten_cnt++,five_cnt--;
             }else{
-                if(five_cnt==0)return false;
-                else if(ten_cnt>=1 && five_cnt>=1){
+                if(ten_cnt>=1 && five_cnt>=1){
                     ten_cnt--;
                     five_cnt--;
                 }else if(five_cnt>=3){
