@@ -4,7 +4,7 @@ public:
         sort(intervals.begin(),intervals.end());
         vector<vector<int>> res;
         vector<int> tempIntervals=intervals[0];
-        int i=0;
+        int i=1;
         int n=intervals.size();
         while(i<n){
             if(intervals[i][0]<=tempIntervals[1]){
