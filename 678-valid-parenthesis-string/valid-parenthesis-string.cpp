@@ -1,20 +1,26 @@
 class Solution {
 public:
-    bool solve(string s,int idx, int cnt,vector<vector<int>>& dp){
-        int n=s.length();
-        if(cnt<0) return false;
-        if(dp[idx][cnt]!=-1) return dp[idx][cnt];
-        if(idx==n){
-            return (cnt==0);
-        }
-        if(s[idx]=='(')return solve(s,idx+1,cnt+1,dp);
-        if(s[idx]==')') return solve(s,idx+1,cnt-1,dp);
-        return dp[idx][cnt]=solve(s,idx+1,cnt+1,dp)|| solve(s,idx+1,cnt-1,dp) || solve(s,idx+1,cnt,dp);
-    }
     bool checkValidString(string s) {
-        int n=s.length();
-        vector<vector<int>> dp(n+1,vector<int>(n+1,-1));
-        return solve(s,0,0,dp);
+        //greedy approach
+        int min=0; 
+        int max=0;
+        for(char i:s){
+            if(i=='('){
+               min=min+1;
+               max=max+1; 
+            }
+            else if(i==')'){
+                min=min-1;
+                max=max-1;
+            }else{
+                min=min-1;
+                max=max+1;
+            }
+            if(min<0) min=0;
+            if(max<0) return false;
+        }
+        return (min==0);
+        //t.c=O(n) 
+        //s.c=O(1)
     }
-    //t.c=N*N
 };
