@@ -1,26 +1,32 @@
 class Solution {
 public:
     int candy(vector<int>& ratings) {
-        int n =ratings.size();
-        vector<int> cnt(n,1); //cnt[1,1,1]
-        //left neighbour check
-        for(int i=1;i<n;i++){
-            if(ratings[i]>ratings[i-1]){
-                cnt[i]=cnt[i-1]+1; 
-            } 
-        }
-        //[1,1,2]
-        
-        //right neighbour check
-        //cnt[1,1,2]
-        for(int i=n-2;i>=0;i--){
-            if(ratings[i]>ratings[i+1]){
-                cnt[i]=max(cnt[i],cnt[i+1]+1);
+        int sum=1;
+        int i=1;
+        int n=ratings.size();
+        while(i<n){
+            if(ratings[i]==ratings[i-1]){
+                sum+=1;
+                i++;
+                continue;
+            }
+            int peak=1;
+            while(i<n && ratings[i]>ratings[i-1]){
+                peak+=1;
+                sum+=peak;
+                i++;
+            }
+            int down=0;
+            while(i<n && ratings[i]<ratings[i-1]){
+                down+=1;
+                sum+=down;
+                i++;
+            }
+            down++;
+            if(down>peak){
+                sum+=(down-peak);
             }
         }
-        //cnt=[2,1,2]
-        return accumulate(cnt.begin(),cnt.end(),0);
+        return sum;
     }
 };
-
-
