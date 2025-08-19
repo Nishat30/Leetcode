@@ -1,10 +1,7 @@
 class Solution {
 public:
     bool isPowerOfThree(int n) {
-        if(n<0) return false;
-        for(int i=0;i<=20;i++){
-           if(pow(3,i)==n)return true;
-        }
-        return false;
+        int maxPowerOf3 = 1162261467; // 3^19 is the largest power of 3 according to constraints
+        return n > 0 && maxPowerOf3 % n == 0;
     }
 };
