@@ -2,29 +2,26 @@ class Solution {
 public:
     bool checkValid(vector<vector<int>>& matrix) {
         int n = matrix.size();
-        unordered_map<int,int> mp;
-        for(int i=1;i<=n;i++) mp[i]++;
 
-        // check rows
-        for(int i=0;i<n;i++){
-            unordered_map<int,int> temp = mp;
-            for(int j=0;j<n;j++){
-                if(--temp[matrix[i][j]] == 0) {
-                    temp.erase(matrix[i][j]);
-                }
-            }
-            if(!temp.empty()) return false;
+        // Reference array: [1,2,...,n]
+        vector<int> check(n);
+        for(int i=0; i<n; i++) check[i] = i+1;
+
+        // Check rows
+        for(int i=0; i<n; i++){
+            vector<int> row = matrix[i];   // copy row
+            sort(row.begin(), row.end());
+            if(row != check) return false;
         }
 
-        // check cols
-        for(int j=0;j<n;j++){
-            unordered_map<int,int> temp = mp;
-            for(int i=0;i<n;i++){
-                if(--temp[matrix[i][j]] == 0) {
-                    temp.erase(matrix[i][j]);
-                }
+        // Check columns
+        for(int j=0; j<n; j++){
+            vector<int> col;
+            for(int i=0; i<n; i++){
+                col.push_back(matrix[i][j]);
             }
-            if(!temp.empty()) return false;
+            sort(col.begin(), col.end());
+            if(col != check) return false;
         }
 
         return true;
