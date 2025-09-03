@@ -1,31 +1,19 @@
 class Solution {
 public:
     double myPow(double x, int n) {
-        bool ifNegative = (n < 0);
-        if (n == 0) {
-            return 1;
+        long long N = n;
+        if (N < 0) {
+            x = 1 / x;
+            N = -N;
         }
-        
-        double ans = 1;
-        
-        if (n == INT_MIN) {
-            if (abs(x) > 1) {
-                return 0;
-            }
-            return abs(x);
-        }
-        
-        int num = abs(n);
-        while (num > 0) {
-            if (num % 2 == 0) {
-                num /= 2;
-                x *= x;
-            } else {
-                num--;
+        double ans = 1.0;
+        while (N > 0) {
+            if (N % 2 == 1) {
                 ans *= x;
             }
+            x *= x;
+            N /= 2;
         }
-        
-        return ifNegative ? 1 / ans : ans;
-    }
+        return ans;
+    }
 };
