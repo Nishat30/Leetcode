@@ -1,44 +1,43 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ans;
-        
-        // Sort the array to make the two-pointer approach easier
-        sort(nums.begin(), nums.end());
-        
-        for (int i = 0; i < nums.size(); i++) {
-            // Avoid duplicates for the first number
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
-            
-            int left = i + 1;
-            int right = nums.size() - 1;
-            
-            while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
-                
-                if (sum == 0) {
-                    // Store the triplet
-                    ans.push_back({nums[i], nums[left], nums[right]});
-                    
-                    // Move left and right to avoid duplicates
-                    while (left < right && nums[left] == nums[left + 1]) left++;
-                    while (left < right && nums[right] == nums[right - 1]) right--;
-                    
-                    // Move both pointers inward
-                    left++;
-                    right--;
-                } 
-                else if (sum < 0) {
-                    // Move the left pointer to increase the sum
-                    left++;
-                } 
-                else {
-                    // Move the right pointer to decrease the sum
-                    right--;
+        int n=nums.size();
+        unordered_map<int,int> mp;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+        }
+        if(mp.size()==1 && nums[0]==0){
+            return {{0,0,0}};
+        }
+        set<vector<int>> st;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                vector<int>temp;
+                int sum=nums[i]+nums[j];
+                if(sum==0){
+                    if((nums[i]==0 && nums[j]==0) && mp[0]<=2){
+                        continue;
+                    }else if(nums[i]==0 && mp[0]<=1){
+                        continue;
+                    }else if(nums[j]==0 && mp[0]<=1){
+                        continue;
+                    }else if(mp.find(0)!=mp.end()){
+                        vector<int> temp = {nums[i], nums[j], 0};
+                        sort(temp.begin(), temp.end()); 
+                        st.insert(temp);
+                    }
+                }
+                else if(mp.find(-(sum))!=mp.end()){
+                    if(mp[-(sum)]<=1 && (nums[i]==-sum) || (nums[j]==-sum)){
+                        continue;
+                    }
+                    vector<int> temp = {nums[i], nums[j], -sum};
+                    sort(temp.begin(), temp.end()); // to handle different orderings
+                    st.insert(temp);
                 }
             }
         }
-        
+        vector<vector<int>> ans(st.begin(), st.end());
         return ans;
     }
 };
