@@ -17,7 +17,7 @@ public:
                 if(i>=0)
                     s[i]='1';
                 else
-                    s="1"+s;
+                    s='1'+s;
             }
             opr++;
         }
