@@ -1,43 +1,31 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        int n=nums.size();
-        unordered_map<int,int> mp;
-        for(int i=0;i<nums.size();i++){
-            mp[nums[i]]++;
-        }
-        if(mp.size()==1 && nums[0]==0){
-            return {{0,0,0}};
-        }
-        set<vector<int>> st;
+        vector<vector<int>> result;
+        sort(nums.begin(), nums.end());
+        int p1, p2, p3;
+        int n = nums.size();
         for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                vector<int>temp;
-                int sum=nums[i]+nums[j];
-                if(sum==0){
-                    if((nums[i]==0 && nums[j]==0) && mp[0]<=2){
-                        continue;
-                    }else if(nums[i]==0 && mp[0]<=1){
-                        continue;
-                    }else if(nums[j]==0 && mp[0]<=1){
-                        continue;
-                    }else if(mp.find(0)!=mp.end()){
-                        vector<int> temp = {nums[i], nums[j], 0};
-                        sort(temp.begin(), temp.end()); 
-                        st.insert(temp);
-                    }
-                }
-                else if(mp.find(-(sum))!=mp.end()){
-                    if(mp[-(sum)]<=1 && (nums[i]==-sum) || (nums[j]==-sum)){
-                        continue;
-                    }
-                    vector<int> temp = {nums[i], nums[j], -sum};
-                    sort(temp.begin(), temp.end()); // to handle different orderings
-                    st.insert(temp);
+            p1 = nums[i];
+            if(p1>0) break;
+            if(i>0 && p1 == nums[i-1]) continue;
+            int j = i+1;
+            int k = n-1;
+            while(j<k){
+                p2 = nums[j];
+                p3 = nums[k];
+                if(p1 + p2 + p3 == 0){
+                    result.push_back({p1, p2, p3});
+                    while(j<n && p2 == nums[j]) j++;
+                    while(k>0 && p3 == nums[k]) k--; 
+                }else if(p1 + p2 + p3 > 0){
+                    k--;
+                }else{
+                    j++;
                 }
             }
+
         }
-        vector<vector<int>> ans(st.begin(), st.end());
-        return ans;
+        return result;
     }
 };
