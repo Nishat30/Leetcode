@@ -3,18 +3,17 @@ public:
     vector<int> sortArrayByParityII(vector<int>& nums) {
         int i=0;
         int j=1;
-        int k=0;
-        vector<int> ans(nums.size());
-        while(k<nums.size()){
-            if(nums[k]%2==0){
-                ans[i]=nums[k];
+        while(i<nums.size() && j<nums.size()){
+            if(nums[i]%2==0){
                 i=i+2;
-            }else{
-                ans[j]=nums[k];
+            }else if(nums[j]%2!=0){
                 j=j+2;
+            }else{
+                swap(nums[i],nums[j]);
+                i+=2;
+                j+=2;
             }
-            k++;
         }
-        return ans;
+        return nums;
     }
 };
